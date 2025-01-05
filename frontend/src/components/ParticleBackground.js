@@ -11,6 +11,9 @@ function ParticleBackground() {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Store ref in variable for cleanup
+    const container = containerRef.current;
+
     // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -22,11 +25,11 @@ function ParticleBackground() {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     // Create particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000; // More particles
+    const particlesCount = 2000;
     const positions = new Float32Array(particlesCount * 3);
     const colors = new Float32Array(particlesCount * 3);
     const scales = new Float32Array(particlesCount);
@@ -34,7 +37,7 @@ function ParticleBackground() {
 
     const generateParticle = (index) => {
       const i = index * 3;
-      const radius = Math.random() * 30 + 15; // Larger radius
+      const radius = Math.random() * 30 + 15;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
 
@@ -49,8 +52,8 @@ function ParticleBackground() {
       colors[i + 1] = color.g;
       colors[i + 2] = color.b;
 
-      scales[index] = Math.random() * 4.0 + 2.0; // Larger scales
-      speeds[index] = Math.random() * 0.2 + 0.1; // Varied speeds
+      scales[index] = Math.random() * 4.0 + 2.0;
+      speeds[index] = Math.random() * 0.2 + 0.1;
     };
 
     for(let i = 0; i < particlesCount; i++) {
@@ -62,7 +65,6 @@ function ParticleBackground() {
     particlesGeometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
     particlesGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(speeds, 1));
 
-    // Enhanced shader material
     const vertexShader = `
       attribute vec3 color;
       attribute float aScale;
@@ -76,11 +78,9 @@ function ParticleBackground() {
         vColor = color;
         vec4 modelPosition = modelMatrix * vec4(position, 1.0);
 
-        // Dynamic wave motion
         float wave = sin(modelPosition.x * 0.5 + uTime) * cos(modelPosition.z * 0.5 + uTime) * 2.0;
         modelPosition.y += wave * aScale;
 
-        // Spiral motion
         float angle = uTime * aSpeed;
         float radius = length(modelPosition.xyz);
         float spiral = sin(radius - uTime * 2.0) * 2.0;
@@ -88,7 +88,6 @@ function ParticleBackground() {
         modelPosition.x += sin(angle + radius) * aScale * spiral;
         modelPosition.z += cos(angle + radius) * aScale * spiral;
 
-        // Mouse interaction
         float distanceFromMouse = length(modelPosition.xy - uMouse * radius);
         float mouseEffect = smoothstep(15.0, 0.0, distanceFromMouse);
         modelPosition.xy += uMouse * mouseEffect * 8.0;
@@ -97,7 +96,6 @@ function ParticleBackground() {
         vec4 projectedPosition = projectionMatrix * viewPosition;
         gl_Position = projectedPosition;
 
-        // Dynamic size based on mouse and motion
         float sizeMultiplier = 1.0 + mouseEffect * 4.0 + sin(uTime + radius) * 0.5;
         gl_PointSize = uSize * aScale * sizeMultiplier * (1.0 / -viewPosition.z);
       }
@@ -122,7 +120,7 @@ function ParticleBackground() {
       depthWrite: false,
       uniforms: {
         uTime: { value: 0 },
-        uSize: { value: 200 }, // Larger particles
+        uSize: { value: 200 },
         uMouse: { value: new THREE.Vector2(0, 0) }
       },
       vertexColors: true
@@ -131,10 +129,8 @@ function ParticleBackground() {
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
-    // Camera position
-    camera.position.z = 25; // Closer to particles
+    camera.position.z = 25;
 
-    // Mouse movement
     const onMouseMove = (event) => {
       mousePosition.current = {
         x: (event.clientX / window.innerWidth) * 2 - 1,
@@ -144,18 +140,15 @@ function ParticleBackground() {
 
     window.addEventListener('mousemove', onMouseMove);
 
-    // Animation
     const animate = () => {
-      time.current += 0.003; // Adjusted animation speed
+      time.current += 0.003;
 
-      // Update uniforms
       particlesMaterial.uniforms.uTime.value = time.current;
       particlesMaterial.uniforms.uMouse.value.set(
         mousePosition.current.x,
         mousePosition.current.y
       );
 
-      // Dynamic camera movement
       const cameraRadius = 30;
       const cameraSpeed = 0.2;
       camera.position.x = Math.sin(time.current * cameraSpeed) * cameraRadius * mousePosition.current.x;
@@ -169,7 +162,6 @@ function ParticleBackground() {
 
     animate();
 
-    // Handle resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -179,7 +171,6 @@ function ParticleBackground() {
 
     window.addEventListener('resize', handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', handleResize);
@@ -197,7 +188,9 @@ function ParticleBackground() {
         }
       });
       renderer.dispose();
-      containerRef.current?.removeChild(renderer.domElement);
+      if (container) {
+        container.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
