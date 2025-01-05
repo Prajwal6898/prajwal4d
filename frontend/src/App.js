@@ -1,30 +1,43 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import NotificationBanner from './components/NotificationBanner';
+import React, { useState, useEffect } from 'react';
 import ParticleBackground from './components/ParticleBackground';
 import Home from './components/Home';
-import About from './components/About';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
 import './App.css';
 
 function App() {
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 100;
+      setIsHeaderVisible(show);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <Router>
-      <div className="App">
-        <NotificationBanner />
-        <ParticleBackground />
-        <Navbar />
-        <main className="App-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <div className="App">
+      <header className={`floating-header ${isHeaderVisible ? 'visible' : ''}`}>
+        <div className="header-content">
+          <div className="header-logo">Prajwal4D</div>
+          <nav className="header-nav">
+            <button onClick={() => scrollToSection('hero')}>Home</button>
+            <button onClick={() => scrollToSection('about')}>About</button>
+            <button onClick={() => scrollToSection('projects')}>Projects</button>
+            <button onClick={() => scrollToSection('contact')}>Contact</button>
+          </nav>
+        </div>
+      </header>
+      <ParticleBackground />
+      <main className="App-main">
+        <Home />
+      </main>
+    </div>
   );
 }
 
