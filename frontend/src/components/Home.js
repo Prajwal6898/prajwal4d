@@ -159,7 +159,7 @@ function Home() {
               <div className="project-content">
                 <h3 className="project-title">3D Animation</h3>
                 <p className="project-description">Creating stunning 3D animations with depth, movement, and emotion.</p>
-                <a href="#" className="project-link">View Project</a>
+                <a href="/projects/3d-animation" className="project-link">View Project</a>
               </div>
             </div>
             
@@ -168,7 +168,7 @@ function Home() {
               <div className="project-content">
                 <h3 className="project-title">Motion Graphics</h3>
                 <p className="project-description">Dynamic motion graphics and kinetic typography that captivate viewers.</p>
-                <a href="#" className="project-link">View Project</a>
+                <a href="/projects/motion-graphics" className="project-link">View Project</a>
               </div>
             </div>
             
@@ -177,7 +177,7 @@ function Home() {
               <div className="project-content">
                 <h3 className="project-title">Visual Effects</h3>
                 <p className="project-description">High-end VFX and compositing work for film and commercial projects.</p>
-                <a href="#" className="project-link">View Project</a>
+                <a href="/projects/visual-effects" className="project-link">View Project</a>
               </div>
             </div>
             
@@ -186,13 +186,13 @@ function Home() {
               <div className="project-content">
                 <h3 className="project-title">4D Concepts</h3>
                 <p className="project-description">Exploring time-based media and fourth-dimensional design concepts.</p>
-                <a href="#" className="project-link">View Project</a>
+                <a href="/projects/4d-concepts" className="project-link">View Project</a>
               </div>
             </div>
           </div>
           
           <div className="projects-cta">
-            <a href="#" className="btn btn-primary">View All Projects</a>
+            <a href="/projects" className="btn btn-primary">View All Projects</a>
           </div>
         </div>
       </section>
@@ -441,7 +441,7 @@ function Home() {
               <span className="upwork-logo"></span>
               <span className="upwork-rating">5★ Upwork Rating</span>
             </div>
-            <a href="#" className="btn btn-secondary">View Upwork Profile</a>
+            <a href="https://www.upwork.com/freelancers/prajwal4d" className="btn btn-secondary">View Upwork Profile</a>
           </div>
         </div>
       </section>
