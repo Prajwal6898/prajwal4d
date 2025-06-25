@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Text3D, MeshDistortMaterial } from '@react-three/drei'
+import { OrbitControls, MeshDistortMaterial } from '@react-three/drei'
 import { ChevronDown, ArrowRight, Sparkles } from 'lucide-react'
 import './Hero.css'
 
@@ -40,41 +39,25 @@ const Hero = ({ currentDimension, dimensions }) => {
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} />
             <Cube3D />
-            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
+            <OrbitControls enableZoom={false} />
           </Canvas>
         </div>
 
         {/* Main Content */}
         <div className="hero__content">
           <div className="hero__text">
-            <motion.div
-              className="hero__greeting"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            <div className="hero__greeting">
               <Sparkles className="greeting-icon" size={20} />
               <span>Welcome to the 4th Dimension</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              className="hero__title"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-            >
+            <h1 className="hero__title">
               I'm <span className="name-highlight">Prajwal</span>
               <br />
               <span className="title-4d">4D</span> Professional
-            </motion.h1>
+            </h1>
 
-            <motion.div
-              className="hero__dimension-display"
-              key={currentDimension}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="hero__dimension-display">
               <div 
                 className="dimension-card"
                 style={{ 
@@ -88,36 +71,24 @@ const Hero = ({ currentDimension, dimensions }) => {
                   {getDimensionDescription(currentDimension)}
                 </p>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.p
-              className="hero__subtitle"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
+            <p className="hero__subtitle">
               Multidimensional R&D IT Professional specializing in CAD, Web Development, 
               AI Integration, and Project Leadership. I operate beyond traditional boundaries, 
               creating solutions that evolve across time and space.
-            </motion.p>
+            </p>
 
-            <motion.div
-              className="hero__actions"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <motion.button
+            <div className="hero__actions">
+              <button
                 className="btn btn--primary"
                 onClick={() => scrollToNext()}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
               >
                 <span>Explore My Dimensions</span>
                 <ArrowRight size={18} />
-              </motion.button>
+              </button>
 
-              <motion.button
+              <button
                 className="btn btn--secondary"
                 onClick={() => {
                   const projectsSection = document.getElementById('projects')
@@ -125,21 +96,14 @@ const Hero = ({ currentDimension, dimensions }) => {
                     projectsSection.scrollIntoView({ behavior: 'smooth' })
                   }
                 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
               >
                 View Projects
-              </motion.button>
-            </motion.div>
+              </button>
+            </div>
           </div>
 
           {/* 4D Stats */}
-          <motion.div
-            className="hero__stats"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-          >
+          <div className="hero__stats">
             <div className="stats-grid">
               <div className="stat-item">
                 <span className="stat-number">4</span>
@@ -154,47 +118,27 @@ const Hero = ({ currentDimension, dimensions }) => {
                 <span className="stat-label">Vision</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          className="hero__scroll-indicator"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          onClick={scrollToNext}
-        >
+        <div className="hero__scroll-indicator" onClick={scrollToNext}>
           <div className="scroll-text">Discover More</div>
-          <motion.div
-            className="scroll-arrow"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
+          <div className="scroll-arrow">
             <ChevronDown size={24} />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Floating Particles */}
         <div className="hero__particles">
           {Array.from({ length: 15 }).map((_, i) => (
-            <motion.div
+            <div
               key={i}
               className="particle"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 backgroundColor: currentDimensionData.color,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 1, 0.3],
-                scale: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                delay: i * 0.2,
               }}
             />
           ))}
