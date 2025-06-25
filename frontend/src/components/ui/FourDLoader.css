@@ -1,0 +1,193 @@
+.fourD-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loader-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* 4D Cube */
+.cube-container {
+  perspective: 1000px;
+  width: 80px;
+  height: 80px;
+}
+
+.cube {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform-style: preserve-3d;
+}
+
+.cube-face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 255, 135, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.cube-front {
+  transform: rotateY(0deg) translateZ(40px);
+  background: rgba(0, 255, 135, 0.2);
+  border-color: #00ff87;
+}
+
+.cube-back {
+  transform: rotateY(180deg) translateZ(40px);
+  background: rgba(255, 107, 107, 0.2);
+  border-color: #ff6b6b;
+}
+
+.cube-right {
+  transform: rotateY(90deg) translateZ(40px);
+  background: rgba(78, 205, 196, 0.2);
+  border-color: #4ecdc4;
+}
+
+.cube-left {
+  transform: rotateY(-90deg) translateZ(40px);
+  background: rgba(255, 230, 109, 0.2);
+  border-color: #ffe66d;
+}
+
+.cube-top {
+  transform: rotateX(90deg) translateZ(40px);
+  background: rgba(0, 255, 135, 0.15);
+  border-color: #00ff87;
+}
+
+.cube-bottom {
+  transform: rotateX(-90deg) translateZ(40px);
+  background: rgba(255, 107, 107, 0.15);
+  border-color: #ff6b6b;
+}
+
+/* Progress Ring */
+.progress-ring {
+  position: relative;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Loading Text */
+.loading-text {
+  font-size: 1.2rem;
+  color: #b3b3b3;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* 4D Particles */
+.particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, #00ff87, #4ecdc4);
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.cube-container {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cube-container {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .cube,
+  .cube-face {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .cube-front,
+  .cube-back {
+    transform-origin: center;
+  }
+  
+  .cube-front {
+    transform: rotateY(0deg) translateZ(30px);
+  }
+  
+  .cube-back {
+    transform: rotateY(180deg) translateZ(30px);
+  }
+  
+  .cube-right {
+    transform: rotateY(90deg) translateZ(30px);
+  }
+  
+  .cube-left {
+    transform: rotateY(-90deg) translateZ(30px);
+  }
+  
+  .cube-top {
+    transform: rotateX(90deg) translateZ(30px);
+  }
+  
+  .cube-bottom {
+    transform: rotateX(-90deg) translateZ(30px);
+  }
+  
+  .loading-text {
+    font-size: 1rem;
+  }
+  
+  .progress-number {
+    font-size: 1.2rem;
+  }
+} 

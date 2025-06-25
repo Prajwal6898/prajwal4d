@@ -1,0 +1,13 @@
+/* Skills Section Styles - already included in index.css */
+/* This file exists to satisfy any imports */
+
+.skills {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.skills .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+} 
