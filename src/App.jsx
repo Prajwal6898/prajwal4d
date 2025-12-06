@@ -1,6 +1,18 @@
+import { useRef } from 'react'
 import './App.css'
 
 function App() {
+  const carouselRef = useRef(null)
+
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = 340
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
   const timelineItems = [
     { year: '2019', title: 'Started Freelancing', desc: '3D modeling & design' },
     { year: '2020', title: 'Full-Stack Dev', desc: 'Web applications' },
@@ -75,24 +87,6 @@ function App() {
           </main>
         </div>
 
-        {/* Timeline - Full Width */}
-        <section className="timeline-section">
-          <h2>Journey</h2>
-          <div className="timeline">
-            <div className="timeline-line"></div>
-            {timelineItems.map((item, index) => (
-              <div className="timeline-item" key={index}>
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-year">{item.year}</span>
-                  <strong className="timeline-title">{item.title}</strong>
-                  <span className="timeline-desc">{item.desc}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <div className="container">
           <main>
             <section>
@@ -112,41 +106,83 @@ function App() {
             </section>
 
             <p className="result">Striking assets. Performant code. Streamlined processes.</p>
+          </main>
+        </div>
 
-            {/* Testimonials */}
-            <section className="testimonials-section">
-              <h2>Client Feedback</h2>
-              <div className="testimonials-grid">
-                {testimonials.map((testimonial, index) => (
-                  <div className="testimonial-card" key={index}>
-                    {testimonial.platform === 'upwork' ? (
-                      <img src="/Upwork-logo.svg" alt="Upwork" className="platform-logo" />
-                    ) : (
-                      <span className="platform-badge">{testimonial.platform}</span>
-                    )}
-                    <div className="testimonial-header">
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="testimonial-avatar"
-                      />
-                      <div className="testimonial-info">
-                        <strong className="testimonial-name">{testimonial.name}</strong>
-                        <span className="testimonial-role">{testimonial.role}</span>
-                      </div>
+        {/* Timeline - Full Width */}
+        <section className="timeline-section">
+          <h2>Journey</h2>
+          <div className="timeline">
+            <div className="timeline-line"></div>
+            {timelineItems.map((item, index) => (
+              <div className="timeline-item" key={index}>
+                <div className="timeline-dot"></div>
+                <div className="timeline-content">
+                  <span className="timeline-year">{item.year}</span>
+                  <strong className="timeline-title">{item.title}</strong>
+                  <span className="timeline-desc">{item.desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonials - Full Width Carousel */}
+        <section className="testimonials-section">
+          <div className="testimonials-header">
+            <h2>Client Feedback</h2>
+            <div className="carousel-nav">
+              <button
+                className="carousel-btn"
+                onClick={() => scrollCarousel('left')}
+                aria-label="Previous testimonials"
+              >
+                ←
+              </button>
+              <button
+                className="carousel-btn"
+                onClick={() => scrollCarousel('right')}
+                aria-label="Next testimonials"
+              >
+                →
+              </button>
+            </div>
+          </div>
+          <div className="testimonials-wrapper">
+            <div className="testimonials-carousel" ref={carouselRef}>
+            {testimonials.map((testimonial, index) => (
+              <div className="testimonial-card" key={index}>
+                {testimonial.platform === 'upwork' ? (
+                  <img src="/Upwork-logo.svg" alt="Upwork" className="platform-logo" />
+                ) : (
+                  <span className="platform-badge">{testimonial.platform}</span>
+                )}
+                <div className="testimonial-content">
+                  <p className="testimonial-text">"{testimonial.text}"</p>
+                  <div className="testimonial-footer">
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="testimonial-avatar"
+                    />
+                    <div className="testimonial-info">
+                      <strong className="testimonial-name">{testimonial.name}</strong>
+                      <span className="testimonial-role">{testimonial.role}</span>
                     </div>
-                    <p className="testimonial-text">"{testimonial.text}"</p>
                     <div className="testimonial-rating">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <span key={i} className="star">★</span>
                       ))}
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </section>
-          </main>
+            ))}
+            </div>
+          </div>
+        </section>
 
+        <div className="container">
           <footer>
             <a href="mailto:hello@prajwal4d.com">Get in touch</a>
           </footer>
