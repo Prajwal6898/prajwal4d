@@ -1,18 +1,6 @@
-import { useRef } from 'react'
 import './App.css'
 
 function App() {
-  const carouselRef = useRef(null)
-
-  const scrollCarousel = (direction) => {
-    if (carouselRef.current) {
-      const scrollAmount = 340
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      })
-    }
-  }
   const timelineItems = [
     { year: '2019', title: 'Started Freelancing', desc: '3D modeling & design' },
     { year: '2020', title: 'Full-Stack Dev', desc: 'Web applications' },
@@ -76,13 +64,6 @@ function App() {
                 <h1>I bridge digital art and engineering.</h1>
                 <p className="tagline">Taking projects from concept sketch to automated, production-ready software.</p>
               </div>
-              <div className="profile-image-wrapper">
-                <img
-                  src="/me.jpg"
-                  alt="Prajwal"
-                  className="profile-image"
-                />
-              </div>
             </div>
           </main>
         </div>
@@ -127,29 +108,10 @@ function App() {
           </div>
         </section>
 
-        {/* Testimonials - Full Width Carousel */}
+        {/* Testimonials - Grid Layout */}
         <section className="testimonials-section">
-          <div className="testimonials-header">
-            <h2>Client Feedback</h2>
-            <div className="carousel-nav">
-              <button
-                className="carousel-btn"
-                onClick={() => scrollCarousel('left')}
-                aria-label="Previous testimonials"
-              >
-                ←
-              </button>
-              <button
-                className="carousel-btn"
-                onClick={() => scrollCarousel('right')}
-                aria-label="Next testimonials"
-              >
-                →
-              </button>
-            </div>
-          </div>
-          <div className="testimonials-wrapper">
-            <div className="testimonials-carousel" ref={carouselRef}>
+          <h2>Client Feedback</h2>
+          <div className="testimonials-grid">
             {testimonials.map((testimonial, index) => (
               <div className="testimonial-card" key={index}>
                 {testimonial.platform === 'upwork' ? (
@@ -178,16 +140,10 @@ function App() {
                 </div>
               </div>
             ))}
-            </div>
           </div>
         </section>
 
-        <div className="container">
-          <footer>
-            <a href="mailto:hello@prajwal4d.com">Get in touch</a>
-          </footer>
-        </div>
-      </div>
+              </div>
     </div>
   )
 }
