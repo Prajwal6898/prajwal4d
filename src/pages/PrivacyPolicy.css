@@ -1,0 +1,127 @@
+/* Privacy Policy Page Styles */
+.policy-container {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.policy-content {
+  padding: 0;
+}
+
+.policy-content h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.policy-content .last-updated {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.policy-content section {
+  margin-bottom: 40px;
+}
+
+.policy-content h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  padding-top: 8px;
+}
+
+.policy-content h3 {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.policy-content p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.policy-content ul {
+  list-style: none;
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.policy-content li {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.policy-content li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--text-tertiary);
+}
+
+.policy-content li strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.policy-content a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s ease;
+}
+
+.policy-content a:hover {
+  opacity: 0.8;
+}
+
+.policy-content .contact-info {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.policy-content .contact-info li {
+  margin-bottom: 8px;
+}
+
+.policy-content .contact-info li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .policy-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .policy-content h2 {
+    font-size: 1rem;
+  }
+
+  .policy-content p,
+  .policy-content li {
+    font-size: 0.875rem;
+  }
+
+  .policy-content section {
+    margin-bottom: 32px;
+  }
+}
